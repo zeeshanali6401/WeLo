@@ -11,7 +11,6 @@
                         <label for="findDate" class="sr-only">Date:</label>
                         <input type="date" required class="form-control" id="findDate" name="date" min="<?= date('Y-m-d') ?>">
                     </div>
-                    
                     <div class="form-group col-sm">
                         <label for="findTime" class="sr-only">Time Slots:</label>
                         <select class="form-control" name="timeSlot" id="findTime" required>

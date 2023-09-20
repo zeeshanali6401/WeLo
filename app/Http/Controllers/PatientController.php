@@ -20,7 +20,16 @@ class PatientController extends Controller
 	}
 
     public function store(Request $request) {
-
+		$rules = [
+			'fullName' => 'required|string|max:255',
+			'email' => 'required|email|unique:patients',
+			'date' => 'required|date',
+			'timeSlot' => 'required|string|max:255',
+		];
+	
+		// Validate the request data
+		$validatedData = $request->validate($rules);
+		
 		$userData = ['name' => $request->fullName, 'email' => $request->email, 'date' => $request->date, 'timeSlot' => $request->timeSlot];
 		Patient::create($userData);
 		$patient = Patient::orderBy('id', 'desc')->first();
