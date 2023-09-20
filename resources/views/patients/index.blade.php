@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@stack('title')
+<title>Home</title>
 @section('content')
     <div class="container">
         <h1 class="text-center text-success">Welcome to WeLo</h1>
@@ -148,8 +150,8 @@
                         }else if (response.status == 404) {
                             Swal.fire(
                                 'Sorry',
-                                'Email or Name is incorrect',
-                                'error'
+                                'Email format not correct',
+                                'warning'
                             );
                         }
 

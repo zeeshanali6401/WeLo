@@ -1,23 +1,4 @@
 <div class="container">
-    {{-- Delete Modal Confirmation --}}
-    <div wire:ignore.self class="modal fade" id="deleteModalShow">
-        <div style="width: 250px" class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header text-danger">
-                    <h5 class="modal-title text-center" id="deleteModalShowLongTitle">Are you sure to change Status?</h5>
-                </div>
-                <div class="modal-body text-center">
-                    <button type="button" wire:click="accept" class="btn btn-danger"
-                        wire:loading.attr="disabled">Yes</button>
-                    <button type="button" class="btn btn-secondary" wire:click="deleteModalHide"
-                        wire:loading.attr="disabled">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- Delete Modal Confirmation end --}}
-
-
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
@@ -136,17 +117,34 @@
                             </div>
                         </div>
                     </div>
-                    <script src="{{ asset('js/app.js') }}"></script>
-                    <script>
-                        window.addEventListener('deleteModalShow', event => {
-                            $("#deleteModalShow").modal("show");
-                        })
-                        window.addEventListener('deleteModalHide', event => {
-                            $("#deleteModalShow").modal("hide")
-                        })
-                    </script>
                 </div>
             </div>
         </div>
     </div>
+    {{-- Delete Modal Confirmation --}}
+    <div wire:ignore.self class="modal fade" data-bs-backdrop="static" id="deleteModalShow">
+        <div style="width: 250px" class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-danger">
+                    <h5 class="modal-title text-center" id="deleteModalShowLongTitle">Are you sure to change Status?</h5>
+                </div>
+                <div class="modal-body text-center">
+                    <button type="button" wire:click="accept" class="btn btn-success"
+                        wire:loading.attr="disabled">Yes</button>
+                    <button type="button" class="btn btn-secondary" wire:click="deleteModalHide"
+                        wire:loading.attr="disabled" wire:target="accept">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Delete Modal Confirmation end --}}
 </div>
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+    window.addEventListener('deleteModalShow', event => {
+        $("#deleteModalShow").modal("show");
+    })
+    window.addEventListener('deleteModalHide', event => {
+        $("#deleteModalShow").modal("hide")
+    })
+</script>
