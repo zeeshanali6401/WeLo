@@ -66,12 +66,12 @@
                                     <input type="text" class="form-control text-center" name="timeSlot" id="timeSlot"
                                         readonly required>
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" id="add_user_btn" class="btn btn-primary">Submit/Forward</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" id="add_user_btn" class="btn btn-primary">Submit/Forward</button>
-                        </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -108,15 +108,11 @@
                     success: function(response) {
                         if (response.message == 200) {
                             $("#user_form_modal").modal('show');
-                            // Get the values from the check_availablity form
                             const dateValue = formData.get('date');
                             const timeSlotValue = formData.get('timeSlot');
 
-                            // Set the values in the user_form modal
                             $('#user_form #date').val(dateValue);
                             $('#user_form #timeSlot').val(timeSlotValue);
-
-                            // Show the user_form modal
                             $("#user_form_modal").modal('show');
                         } else if (response.message == 404) {
                             Swal.fire(
@@ -134,22 +130,6 @@
                 e.preventDefault();
                 const fd = new FormData(this);
                 $("#add_user_btn").text('Please Wait...');
-
-                // const selectedDate = new Date($('#user_form input[name="date"]').val());
-                // const selectedTime = $('#user_form input[name="timeSlot"]').val();
-
-                // const selectedDateTime = new Date(selectedDate.toDateString());
-                // const currentDate = new Date();
-
-                // if (selectedDate < currentDate) {
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: 'Invalid Date',
-                //         text: 'Please select a future date and time.',
-                //     });
-                //     return;
-                // }
-
                 $.ajax({
                     url: '{{ route('user.store') }}',
                     method: 'post',
@@ -162,9 +142,15 @@
                         if (response.status == 200) {
                             Swal.fire(
                                 'Added!',
-                                'Employee Added Successfully!',
+                                'Requested Successfully!',
                                 'success'
                             )
+                        }else if (response.status == 404) {
+                            Swal.fire(
+                                'Sorry',
+                                'Email or Name is incorrect',
+                                'error'
+                            );
                         }
 
                         $("#add_user_btn").text('Submit');
