@@ -6,7 +6,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-6">
-                                <h3>Appoints</h3>
+                                <h3>Appointments</h3>
                             </div>
                             <div class="col-4">
                                 <input class="form-control" type="search" wire:model="term" placeholder="Search"

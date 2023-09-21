@@ -6,7 +6,7 @@
         <h1 class="text-center text-success">Welcome to WeLo</h1>
         <h5 class="text-center">Call: +92-1234567890</h5>
         <h6 class="text-center">We Have best Doctors</h6>
-        <div class="px-5" style="margin: auto;  width: 50%; padding: 10px;  border-radius: 20pt;  background: #a7a5a5;">
+        <div class="px-5" style="margin: auto;  width: 50%; padding: 10px;  border-radius: 20pt;  background-image: linear-gradient(to right, rgba(200, 40, 30, 0), rgb(146, 74, 74))">
             <form id="check_availablity">
                 <div class="row">
                     <div class="form-group col-sm">
@@ -44,7 +44,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5 text-success">This Slot is Available</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" id="close_modal_cross_btn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form id="user_form">
@@ -57,6 +57,7 @@
                                     <label for="fullName">Email</label>
                                     <input type="email" class="form-control" name="email" id="email"
                                         placeholder="Email Address">
+                                        <span id="email_error" class="text-danger">Email format not correct!</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="date">Date</label>
@@ -69,7 +70,7 @@
                                         readonly required>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" id="close_modal_btn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" id="add_user_btn" class="btn btn-primary">Submit/Forward</button>
                                 </div>
                             </form>
@@ -81,6 +82,7 @@
     </div>
     <script>
         $(function() {
+            $("#email_error").hide();
             // Check slot availiblity
             $("#check_availablity").submit(function(e) {
                 e.preventDefault();
@@ -131,6 +133,8 @@
             $("#user_form").submit(function(e) {
                 e.preventDefault();
                 const fd = new FormData(this);
+                $("#close_modal_btn").hide()
+                $("#close_modal_cross_btn").hide()
                 $("#add_user_btn").text('Please Wait...');
                 $.ajax({
                     url: '{{ route('user.store') }}',
@@ -147,18 +151,21 @@
                                 'Requested Successfully!',
                                 'success'
                             )
+                            $("#user_form_modal").modal('hide');
+                            $("#add_user_btn").text('Submit');
+                            $("#user_form")[0].reset();
+                            $("#check_availablity")[0].reset();
+                            $("#email_error").hide();
                         }else if (response.status == 404) {
-                            Swal.fire(
-                                'Sorry',
-                                'Email format not correct',
-                                'warning'
-                            );
+                            $("#email_error").show();
+                            $("#add_user_btn").text('Submit/Forward');
+                            // Swal.fire(
+                            //     'Sorry',
+                            //     'Email format not correct',
+                            //     'warning'
+                            // );
                         }
 
-                        $("#add_user_btn").text('Submit');
-                        $("#user_form")[0].reset();
-                        $("#check_availablity")[0].reset();
-                        $("#user_form_modal").modal('hide');
                     }
                 });
             });
