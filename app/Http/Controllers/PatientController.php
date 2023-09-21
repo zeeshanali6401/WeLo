@@ -32,7 +32,7 @@ class PatientController extends Controller
 		//   ]);
 
 		$rules = [
-			'fullName' => 'required',
+			'fullName' => 'required|min:3|max:100|regex:/^[\p{L}\p{M}\s.\-]+$/u',
 			'email' => 'required|email|email:rfc,dns',
 		];
 		$validator = Validator::make($request->all(), $rules);
@@ -48,7 +48,7 @@ class PatientController extends Controller
 			$userData = ['name' => $request->fullName, 'email' => $request->email, 'date' => $request->date, 'timeSlot' => $request->timeSlot];
 			Patient::create($userData);
 			$patient = Patient::orderBy('id', 'desc')->first();
-			Mail::to($userData['email'])->send(new NotificationEdm($patient));
+			// Mail::to($userData['email'])->send(new NotificationEdm($patient));
 			return response()->json([
 				'status' => 200,
 			]);
