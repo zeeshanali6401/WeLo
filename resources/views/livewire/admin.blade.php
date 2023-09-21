@@ -61,7 +61,7 @@
                 <div>
                     <div>
                         <div>
-                            <table class="table">
+                            <table class="table text-center">
                                 <thead>
                                     <tr>
                                         <th class="text-center">ID</th>
@@ -70,7 +70,7 @@
                                         <th>Date</th>
                                         <th>Time Slot</th>
                                         <th>Status</th>
-                                        <th class="text-center">Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -90,7 +90,7 @@
                                                     <a href="#" class="btn btn-sm btn-success p-0">Active</a>
                                                 @endif
                                             </td>
-                                            <td class="text-center">
+                                            <td>
                                                 {{-- <button class="btn btn-sm btn-primary" wire:click="accept({{ $item->id }})" wire:loading.attr="disabled">
                                                     <span wire:loading.remove>Approve/Reject</span>
                                                     <div wire:loading>
@@ -100,8 +100,14 @@
 
                                                 {{-- <button class="btn btn-sm btn-danger text-white" wire:click="deleteModalShow({{ $item->id }})">Delete</button> --}}
 
-                                                <button class="btn btn-sm btn-primary"
-                                                    wire:click="confirmModalShow({{ $item->id }})">Approve/Reject</button>
+                                                <button class="btn btn-sm btn-primary rounded-circle" @if ($item->status === 'Active')
+                                                    disabled
+                                                @endif
+                                                    wire:click="confirmModalShow({{ $item->id }})">✓</button>
+                                                <button class="btn btn-sm btn-danger rounded-circle" @if ($item->status === 'Inactive')
+                                                    disabled
+                                                @endif
+                                                    wire:click="confirmModalShow({{ $item->id }})">X</button>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -123,10 +129,10 @@
     </div>
     {{-- Delete Modal Confirmation --}}
     <div wire:ignore.self class="modal fade" data-bs-backdrop="static" id="deleteModalShow">
-        <div style="width: 250px" class="modal-dialog modal-dialog-centered" role="document">
+        <div style="width: 250px" class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header text-danger">
-                    <h5 class="modal-title text-center" id="deleteModalShowLongTitle">Are you sure to change Status?</h5>
+                    <h5 class="modal-title text-center" id="deleteModalShowLongTitle">Send confirmation Email?</h5>
                 </div>
                 <div class="modal-body text-center">
                     <button type="button" wire:click="accept" class="btn btn-success"
