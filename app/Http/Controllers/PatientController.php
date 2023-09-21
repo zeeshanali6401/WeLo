@@ -48,7 +48,7 @@ class PatientController extends Controller
 			$userData = ['name' => $request->fullName, 'email' => $request->email, 'date' => $request->date, 'timeSlot' => $request->timeSlot];
 			Patient::create($userData);
 			$patient = Patient::orderBy('id', 'desc')->first();
-			// Mail::to($userData['email'])->send(new NotificationEdm($patient));
+			Mail::to($userData['email'])->send(new NotificationEdm($patient));
 			return response()->json([
 				'status' => 200,
 			]);
