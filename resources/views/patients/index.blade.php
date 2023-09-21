@@ -114,7 +114,7 @@
                             $("#user_form_modal").modal('show');
                             const dateValue = formData.get('date');
                             const timeSlotValue = formData.get('timeSlot');
-
+                            
                             $('#user_form #date').val(dateValue);
                             $('#user_form #timeSlot').val(timeSlotValue);
                             $("#user_form_modal").modal('show');
@@ -123,8 +123,10 @@
                                 'Sorry',
                                 'We apologize because on that day this Time slot is not available',
                                 'error'
-                            );
-                        }
+                                );
+                            }
+                            $("#close_modal_btn").show();
+                            $("#close_modal_cross_btn").show();
                         $("#find_btn").text("Find");
                     }
                 });
@@ -135,7 +137,8 @@
                 const fd = new FormData(this);
                 $("#close_modal_btn").hide()
                 $("#close_modal_cross_btn").hide()
-                $("#add_user_btn").text('Please Wait...');
+                $("#add_user_btn").text('Please Wait...').attr('disabled','disabled');
+                // $("#add_user_btn").attr('disabled','disabled');
                 $.ajax({
                     url: '{{ route('user.store') }}',
                     method: 'post',
@@ -152,7 +155,8 @@
                                 'success'
                             )
                             $("#user_form_modal").modal('hide');
-                            $("#add_user_btn").text('Submit');
+                            $("#add_user_btn").removeAttr('disabled').text('Submit/Forward');
+
                             $("#user_form")[0].reset();
                             $("#check_availablity")[0].reset();
                             $("#email_error").hide();
@@ -165,7 +169,6 @@
                             //     'warning'
                             // );
                         }
-
                     }
                 });
             });

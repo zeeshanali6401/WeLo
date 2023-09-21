@@ -41,18 +41,19 @@ class Admin extends Component
             }
             $this->dispatchBrowserEvent('deleteModalHide');
             $patient->save();
+            $this->alertSuccess();
         }
         $this->render();
     }
-    public function delete($id){
-        $patient = Patient::find($id);
-        if(!is_null($id)){
-            $patient->delete();
-            Mail::to($patient->email)->send(new RejectMail($patient));
-        }
-        $this->render();
-    }
-    public function deleteModalShow($id)
+    // public function delete($id){
+    //     $patient = Patient::find($id);
+    //     if(!is_null($id)){
+    //         $patient->delete();
+    //         Mail::to($patient->email)->send(new RejectMail($patient));
+    //     }
+    //     $this->render();
+    // }
+    public function confirmModalShow($id)
     {
         $this->file_id = $id;
         $this->dispatchBrowserEvent('deleteModalShow');
@@ -60,5 +61,15 @@ class Admin extends Component
     public function deleteModalHide()
     {
         $this->dispatchBrowserEvent('deleteModalHide');
+    }
+
+
+    public function alertSuccess()
+    {
+        $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',  
+                'message' => 'Email sent successfully!', 
+                'text' => 'This will notify the user about their status.',
+            ]);
     }
 }

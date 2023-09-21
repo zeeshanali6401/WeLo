@@ -101,7 +101,7 @@
                                                 {{-- <button class="btn btn-sm btn-danger text-white" wire:click="deleteModalShow({{ $item->id }})">Delete</button> --}}
 
                                                 <button class="btn btn-sm btn-primary"
-                                                    wire:click="deleteModalShow({{ $item->id }})">Approve/Reject</button>
+                                                    wire:click="confirmModalShow({{ $item->id }})">Approve/Reject</button>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -143,8 +143,15 @@
 <script>
     window.addEventListener('deleteModalShow', event => {
         $("#deleteModalShow").modal("show");
-    })
+    });
     window.addEventListener('deleteModalHide', event => {
         $("#deleteModalShow").modal("hide")
-    })
+    });
+    window.addEventListener('swal:modal', event => {
+            swal({
+                title: event.detail.message,
+                text: event.detail.text,
+                icon: event.detail.type,
+            });
+        });
 </script>

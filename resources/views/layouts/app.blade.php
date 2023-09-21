@@ -18,6 +18,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js'></script>
     {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.js"></script> --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body class="bg-light">
@@ -25,14 +26,14 @@
         <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
             <div class="container">
                 @auth
-                <a class="navbar-brand" href="{{ url('/admin/dashboard') }}">
-                    Dashboard
-                </a>
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="{{url('/')}}/api/user">Add Patient</span></a>
-                    </li>
-                </ul>
+                    <a class="navbar-brand" href="{{ url('/admin/dashboard') }}">
+                        Dashboard
+                    </a>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ url('/') }}/api/user">Add Patient</span></a>
+                        </li>
+                    </ul>
                 @endauth
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -85,12 +86,11 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+    <script></script>
     @livewireScripts
 </body>
-
 </html>
