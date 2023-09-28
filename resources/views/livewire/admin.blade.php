@@ -1,47 +1,47 @@
 <div class="container">
-    @section('bellNotification')
-    <!-- Notification dropdown -->
-    @if ($counter != 0)
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false"><strong>Inactive</strong>
-                <i style="font-size: " class="bi bi-bell"></i>
-                <span class="badge rounded-pill badge-notification bg-danger">{{ $counter }}</span>
-                
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            {{-- <th>Apply at</th> --}}
-                            <th>Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($inactiveCollection as $item)
-                            <tr>
-                                <td>{{ $item->id }}</td>
-                                {{-- <td>{{$item->created_at}}</td> --}}
-                                <td>{{ $item->name }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{-- <div class="row">
-                <div class="col-sm m-3">
-                    {{ $inactiveCollection->links() }}
-                </div>
-            </div> --}}
-            </ul>
-        </div>
-    @endif
-    <!-- Notification dropdown -->
-@endsection
+    
     <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h2>Appointments</h2>
+             <!-- Notification dropdown -->
+    @if ($counter != 0)
+    <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false"><strong>Inactive</strong>
+            <i style="font-size: " class="bi bi-bell"></i>
+            <span class="badge rounded-pill badge-notification bg-danger">{{ $counter }}</span>
+            
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        {{-- <th>Apply at</th> --}}
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($inactiveCollection as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            {{-- <td>{{$item->created_at}}</td> --}}
+                            <td>{{ $item->name }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            {{-- <div class="row">
+            <div class="col-sm m-3">
+                {{ $inactiveCollection->links() }}
+            </div>
+        </div> --}}
+        </ul>
+    </div>
+@endif
+<!-- Notification dropdown -->
         </div>
+        
         <div class="card-body">
             <h4 class="card-title">Title</h4>
             <p class="card-text">
